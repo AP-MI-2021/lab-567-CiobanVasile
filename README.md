@@ -16,7 +16,7 @@ Trebuie să respectați organizarea codului prezentată la curs și seminar, adi
   - Module pentru teste
 ```
 
-Trebuie predate:
+Trebuie predate:dada
 1. Minim o funcționalitate în prima săptămână, minim încă două în a doua săptămână și toate în a treia săptămână.
 
 2. Alte cerințe comunicate în cadrul laboratoarelor, seminarelor sau cursului. 
