@@ -1,7 +1,6 @@
 def creeaza_rezervare(id_rezervare,nume,clasa,pret,checkin):
     '''
     Creeaza o rezervare
-    :param lst_rezervari: o lista cu rezervarile
     :param id_rezervare:  id-ul rezervarii
     :param nume:          numele pe care este facuta rezervarea
     :param clasa:         clasa la care este facuta rezervarea
