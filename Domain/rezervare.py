@@ -25,7 +25,7 @@ def creeaza_rezervare(id_rezervare,nume,clasa,pret,checkin):
     ]
 def get_id(rezervare):
     """
-    TODO
+
     :param rezervare: rezervarea
     :return:          id-ul rezervarii
     """
@@ -34,7 +34,7 @@ def get_id(rezervare):
 
 def get_nume(rezervare):
     """
-    TODO
+
     :param rezervare: rezervarea
     :return:          numele pe care este facuta rezervarea
     """
@@ -43,7 +43,7 @@ def get_nume(rezervare):
 
 def get_clasa(rezervare):
     """
-    TODO
+
     :param rezervare: rezervarea
     :return:          clasa la care este facuta rezervarea
     """
@@ -52,7 +52,7 @@ def get_clasa(rezervare):
 
 def get_pret(rezervare):
     """
-    TODO
+
     :param rezervare: rezervarea
     :return:          pretul rezervarii
     """
@@ -61,7 +61,7 @@ def get_pret(rezervare):
 
 def get_checking(rezervare):
     """
-    TODO
+
     :param rezervare: rezervarea
     :return:          daca este sau nu facut checkinul
     """
@@ -70,7 +70,7 @@ def get_checking(rezervare):
 
 def get_str(rezervare):
     """
-    TODO
+
     :param rezervare: rezervarea
     :return:          detalii despre rezervare
     """
