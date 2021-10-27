@@ -7,7 +7,7 @@ def creeaza_rezervare(id_rezervare,nume,clasa,pret,checkin):
     :param pret:          pretul rezervarii
     :param checkin:       chekinul facut(DA/NU)
     :return:              rezervarea creata
-    '''
+
     return {
             'id': id_rezervare,
             'nume': nume,
@@ -15,14 +15,22 @@ def creeaza_rezervare(id_rezervare,nume,clasa,pret,checkin):
             'pret': pret,
             'checkin': checkin,
         }
-
+    '''
+    return [
+        id_rezervare,
+        nume,
+        clasa,
+        pret,
+        checkin,
+    ]
 def get_id(rezervare):
     """
     TODO
     :param rezervare: rezervarea
     :return:          id-ul rezervarii
     """
-    return rezervare['id']
+    #return rezervare['id']
+    return rezervare[0]
 
 def get_nume(rezervare):
     """
@@ -30,7 +38,8 @@ def get_nume(rezervare):
     :param rezervare: rezervarea
     :return:          numele pe care este facuta rezervarea
     """
-    return rezervare['nume']
+    #return rezervare['nume']
+    return rezervare[1]
 
 def get_clasa(rezervare):
     """
@@ -38,7 +47,8 @@ def get_clasa(rezervare):
     :param rezervare: rezervarea
     :return:          clasa la care este facuta rezervarea
     """
-    return rezervare['clasa']
+    #return rezervare['clasa']
+    return rezervare[2]
 
 def get_pret(rezervare):
     """
@@ -46,7 +56,8 @@ def get_pret(rezervare):
     :param rezervare: rezervarea
     :return:          pretul rezervarii
     """
-    return rezervare['pret']
+    #return rezervare['pret']
+    return rezervare[3]
 
 def get_checking(rezervare):
     """
@@ -54,7 +65,8 @@ def get_checking(rezervare):
     :param rezervare: rezervarea
     :return:          daca este sau nu facut checkinul
     """
-    return rezervare['checkin']
+    #return rezervare['checkin']
+    return rezervare[4]
 
 def get_str(rezervare):
     """
