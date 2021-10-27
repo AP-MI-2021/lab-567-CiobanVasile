@@ -1,10 +1,8 @@
-from Domain.rezervare import get_str,get_nume,get_pret,get_clasa,get_checking,creeaza_rezervare
-from Logic.crud import create,read,update,delete
+from Domain.rezervare import get_str, get_nume, get_pret, get_clasa, get_checking, creeaza_rezervare, get_id
+from Logic.crud import create, read, update, delete
 
 def show_menu():
     print('1.CRUD')
-    print('2.')
-    print('3.')
     print('x.Exit')
 
 def handle_add(rezervari):
@@ -12,7 +10,7 @@ def handle_add(rezervari):
     nume = input('Dati numele pe care e facuta rezervarea ')
     pret = float(input('Dati pretul rezervarii '))
     clasa = input('Dati clasa rezervarii ')
-    checking = input("Este factu checkinul? ")
+    checking = input("Este facut checkinul? ")
 
     return create(rezervari,id_rezervare,nume,clasa,pret,checking)
 
@@ -21,12 +19,19 @@ def handle_show_all(rezervari):
         print(get_str(rezervare))
 
 def handle_show_details(rezervari):
-    id_prajitura = int(input('Dati id-ul rezervarii pentru care doriti detalii: '))
-    rezervare = read(rezervari, id_prajitura)
-    print(f'Nume: {get_nume(rezervare)}')
-    print(f'Clasa: {get_clasa(rezervare)}')
-    print(f'Pret: {get_pret(rezervare)}')
-    print(f'Checking: {get_checking(rezervare)}')
+    is_id = False
+    id_rezervare = int(input('Dati id-ul rezervarii pentru care doriti detalii: '))
+    for i in rezervari :
+        if id_rezervare == get_id(i):
+             is_id = True
+             rezervare = read(rezervari, id_rezervare)
+             print(f'Nume: {get_nume(rezervare)}')
+             print(f'Clasa: {get_clasa(rezervare)}')
+             print(f'Pret: {get_pret(rezervare)}')
+             print(f'Checking: {get_checking(rezervare)}')
+
+    if is_id == False :
+        print("Rezervarea cu id-ul dat nu apare in baza de date ")
 
 def handle_update(rezervari):
     id_rezervare = int(input('Dati id-ul rezervarii care se actualizeaza: '))
@@ -35,6 +40,8 @@ def handle_update(rezervari):
     clasa= input('Dati noua clasa a rezervarii: ')
     checkin = input('Dati checkinul rezervarii: ')
     return update(rezervari, creeaza_rezervare(id_rezervare, nume, clasa, pret, checkin))
+
+
 
 def handle_delete(rezervari):
     id_rezervare = int(input('Dati id-ul rezervarii care se va sterge: '))

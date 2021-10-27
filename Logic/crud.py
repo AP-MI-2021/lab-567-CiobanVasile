@@ -3,13 +3,13 @@ def create(lst_rezervari,
         id_rezervare: int, nume, clasa, pret, checkin):
     """
     TODO
-    :param lst_rezervari:
-    :param id_rezervare:
-    :param nume:
-    :param clasa:
-    :param pret:
-    :param checkin:
-    :return:
+    :param lst_rezervari: o lista cu rezervarile
+    :param id_rezervare:  id-ul rezervarii
+    :param nume:          numele pe care este facuta rezervarea
+    :param clasa:         clasa la care este facuta rezervarea
+    :param pret:          pretul rezervarii
+    :param checkin:       chekinul facut(DA/NU)
+    :return:              lista initiala plus rezervarea creata
     """
 
     rezervare = creeaza_rezervare(id_rezervare, nume, clasa, pret, checkin)
@@ -20,8 +20,8 @@ def read(lst_rezervari, id_rezervare: int=None):
     """
 
     :param lst_rezervari: lista de rezervari
-    :param id_rezervare: id-ul rezervarii dorite
-    :return:
+    :param id_rezervare:  id-ul rezervarii dorite
+    :return:              rezervarea cu id-ul citit, respectiv toata lista daca nu exista id-ul citit
     """
     rezervare_cu_id = None
     for rezervare in lst_rezervari:
@@ -35,9 +35,9 @@ def read(lst_rezervari, id_rezervare: int=None):
 def update(lst_rezervari, new_rezervare):
     """
     TODO
-    :param lst_rezervari:
-    :param new_rezervare:
-    :return:
+    :param lst_rezervari:  lista initiala de rezervari
+    :param new_rezervare:  rezervarea pe care vrem sa o modificam
+    :return:               o lista nou cu rezervarea modificata
     """
     new_rezervari = []
     for rezervare in lst_rezervari:
@@ -50,9 +50,9 @@ def update(lst_rezervari, new_rezervare):
 def delete(lst_rezervari, id_rezervare: int):
     """
     TODO
-    :param lst_rezervari:
-    :param id_rezervare:
-    :return:
+    :param lst_rezervari:   lista initiala de rezervari
+    :param id_rezervare:    id-ul rezervarii pe care vrem sa o stergem
+    :return:                lista initiala de rezervari fara rezervarea cu id-ul citit
     """
     new_rezervari = []
     for rezervare in lst_rezervari:
