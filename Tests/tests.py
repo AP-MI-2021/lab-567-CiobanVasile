@@ -12,11 +12,19 @@ def get_data():
 
 def test_create():
     rezervari = get_data()
-    parametrii = (6, 'Babadum', 'ecnomy', 100, 'da')
+    parametrii = (10, 'Babadum', 'economy', 100, 'da')
     r_new = creeaza_rezervare(*parametrii)
     new_rezervari = create(rezervari, *parametrii)
 
     assert len(new_rezervari) == len(rezervari) + 1
+    assert r_new in new_rezervari
+
+    parametrii2 = (10, 'Cioban', 'economyplus', 100, 'nu')
+    try:
+        rezervare = create(new_rezervari, *parametrii2)
+        assert False
+    except ValueError:
+        assert True
 
 def test_read():
     rezervari = get_data()
@@ -28,7 +36,7 @@ def test_read():
 def test_update():
     rezervari = get_data()
     r_up=creeaza_rezervare(1, 'Cioban', 'economy plus', 123456, 'da')
-    up = update(rezervari,r_up)
+    up = update(rezervari, r_up)
 
     assert r_up in up
     assert r_up not in rezervari

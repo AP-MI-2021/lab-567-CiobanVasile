@@ -6,6 +6,9 @@ def ieftinire_procentaj(lst_rezervari, procentaj):
     :param procentaj: procentajul cu care se vor reduce rezervarile
     :return:      lista cu toate rezervarile care au checkinul facut cu reducerea pretului
     """
+    if not (0 <= procentaj <= 100):
+        raise ValueError('Procentajul trebuie sa fie intre 0 si 100 inclusiv.')
+
     result = []
     for rezervare in lst_rezervari:
         if get_checking(rezervare) == 'da':

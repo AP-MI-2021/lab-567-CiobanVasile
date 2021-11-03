@@ -10,15 +10,18 @@ def show_menu():
     print('x.Exit')
 
 def handle_add(rezervari):
-    id_rezervare = int(input('Dati id-ul rezervarii '))
-    nume = input('Dati numele pe care e facuta rezervarea ')
-    pret = float(input('Dati pretul rezervarii '))
-    clasa = input('Dati clasa rezervarii ')
-    checking = input("Este facut checkinul? ")
-
-    return create(rezervari,id_rezervare,nume,clasa,pret,checking)
+    try:
+        id_rezervare = int(input('Dati id-ul rezervarii '))
+        nume = input('Dati numele pe care e facuta rezervarea ')
+        clasa = input('Dati clasa rezervarii ')
+        pret = float(input('Dati pretul rezervarii '))
+        checking = input("Este facut checkinul? ")
+        return create(rezervari,id_rezervare,nume,clasa,pret,checking)
+    except ValueError as ve:
+        print('Eroare:',ve)
 
 def handle_show_all(rezervari):
+    rezervare = []
     for rezervare in rezervari:
         print(get_str(rezervare))
 
@@ -38,21 +41,42 @@ def handle_show_details(rezervari):
         print("Rezervarea cu id-ul dat nu apare in baza de date ")
 
 def handle_update(rezervari):
-    id_rezervare = int(input('Dati id-ul rezervarii care se actualizeaza: '))
-    nume = input('Dati noul nume al rezervarii: ')
-    pret = float(input('Dati noul pret al rezervarii: '))
-    clasa= input('Dati noua clasa a rezervarii: ')
-    checkin = input('Dati checkinul rezervarii: ')
-    return update(rezervari, creeaza_rezervare(id_rezervare, nume, clasa, pret, checkin))
+    try:
+        id_rezervare = int(input('Dati id-ul rezervarii care se actualizeaza: '))
+        nume = input('Dati noul nume al rezervarii: ')
+        clasa= input('Dati noua clasa a rezervarii: ')
+        pret = float(input('Dati noul pret al rezervarii: '))
+        checkin = input('Dati checkinul rezervarii: ')
+        return update(rezervari, creeaza_rezervare(id_rezervare, nume, clasa, pret, checkin))
+    except ValueError as ve:
+        print('Eroare:',ve)
 
 
 
 def handle_delete(rezervari):
-    id_rezervare = int(input('Dati id-ul rezervarii care se va sterge: '))
-    rezervari = delete(rezervari, id_rezervare)
-    print('Stergerea a fost efectuata cu succes.')
+    try:
+        id_rezervare = int(input('Dati id-ul rezervarii care se va sterge: '))
+        rezervari = delete(rezervari, id_rezervare)
+        print('Stergerea a fost efectuata cu succes.')
+        return rezervari
+    except ValueError as ve:
+        print('Eroare:',ve)
+
+
+def handle_trecere_rezervari(rezervari):
+    nume = input("Dati numele pentru care rezervarile vor fi trecute la o clasa superioara: ")
+    rezervari = trecere_rezervari_nume_clasa_superioara(rezervari, nume)
+
     return rezervari
 
+def handle_ieftinire_rezervari(rezervari):
+    try:
+        procentaj = int(input('Dati procentajul cu care se ieftinesc rezervarile: '))
+        rezervari = ieftinire_procentaj(rezervari, procentaj)
+    except ValueError as ve:
+        print('Eroare:',ve)
+
+    return rezervari
 def handle_crud(rezervari):
     while True:
         print('1. Adaugare')
@@ -79,17 +103,6 @@ def handle_crud(rezervari):
             print('Optiune invalida.')
     return rezervari
 
-def handle_trecere_rezervari(rezervari):
-    nume = input("Dati numele pentru care rezervarile vor fi trecute la o clasa superioara: ")
-    rezervari = trecere_rezervari_nume_clasa_superioara(rezervari, nume)
-
-    return rezervari
-
-def handle_ieftinire_rezervari(rezervari):
-    procentaj = int(input('Dati procentajul cu care se ieftinesc rezervarile: '))
-    rezervari = ieftinire_procentaj(rezervari, procentaj)
-
-    return rezervari
 
 def run_ui(rezervari):
 
