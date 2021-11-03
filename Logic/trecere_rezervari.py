@@ -2,7 +2,7 @@ from Domain.rezervare import get_nume, get_clasa, creeaza_rezervare,get_id,get_c
 
 def trecere_rezervari_nume_clasa_superioara(lst_rezervari, nume):
     """
-    :param lst_rezervari: lista cu rezervari
+    :param lst_rezervari: lista cu rezervari din baza de date
     :param nume:          numele la care vrem sa treceme rezervarile la o clasa superioara
     :return:              lista cu rezervari cu clasele schimbate
     """

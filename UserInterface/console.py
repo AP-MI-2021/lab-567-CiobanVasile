@@ -52,8 +52,6 @@ def handle_update(rezervari):
 
     return rezervari
 
-
-
 def handle_delete(rezervari):
     try:
         id_rezervare = int(input('Dati id-ul rezervarii care se va sterge: '))

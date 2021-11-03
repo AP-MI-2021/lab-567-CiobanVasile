@@ -2,7 +2,7 @@ from Domain.rezervare import get_nume, get_clasa, creeaza_rezervare,get_id,get_c
 
 def ieftinire_procentaj(lst_rezervari, procentaj):
     """
-    :param lst_rezervari: lista cu rezervari
+    :param lst_rezervari: lista cu rezervari din baza de date
     :param procentaj: procentajul cu care se vor reduce rezervarile
     :return:      lista cu toate rezervarile care au checkinul facut cu reducerea pretului
     """
