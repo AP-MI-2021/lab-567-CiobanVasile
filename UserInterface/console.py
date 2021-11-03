@@ -21,7 +21,6 @@ def handle_add(rezervari):
         print('Eroare:',ve)
 
 def handle_show_all(rezervari):
-    rezervare = []
     for rezervare in rezervari:
         print(get_str(rezervare))
 
@@ -50,6 +49,8 @@ def handle_update(rezervari):
         return update(rezervari, creeaza_rezervare(id_rezervare, nume, clasa, pret, checkin))
     except ValueError as ve:
         print('Eroare:',ve)
+
+    return rezervari
 
 
 
