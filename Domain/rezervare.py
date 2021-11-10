@@ -1,74 +1,65 @@
-def creeaza_rezervare(id_rezervare,nume,clasa,pret,checkin):
+def creeaza_rezervare(id, nume, clasa, pret, checkin):
     '''
-    Creeaza o rezervare
-    :param id_rezervare:  id-ul rezervarii
-    :param nume:          numele pe care este facuta rezervarea
-    :param clasa:         clasa la care este facuta rezervarea
-    :param pret:          pretul rezervarii
-    :param checkin:       chekinul facut(DA/NU)
-    :return:              rezervarea creata
-
-    return {
-            'id': id_rezervare,
-            'nume': nume,
-            'clasa': clasa,
-            'pret': pret,
-            'checkin': checkin,
-        }
+    Aceasta funtie creeaza o rezervare
+    :param id: ID-ul rezervarii- string
+    :param nume: Numele rezervarii - string
+    :param clasa: Clasa rezervarii (economy, economy plus, business) - string
+    :param pret: Pretul rezervarii - float
+    :param checkin: Checkin rezervare (Da sau Nu) - string
+    :return: Returneaza un o lista ce retine o rezervare
     '''
-    return [
-        id_rezervare,
+    return (
+        id,
         nume,
         clasa,
         pret,
-        checkin,
-    ]
+        checkin
+    )
+
 def get_id(rezervare):
-    """
-    :param rezervare: rezervarea
-    :return:          id-ul rezervarii
-    """
-    #return rezervare['id']
+    '''
+    Aceasta functie da ID-ul unei rezervari
+    :param rezervare: un tuple de tip rezervare
+    :return: Returneaza ID-ul unei rezervari - string
+    '''
     return rezervare[0]
-
 def get_nume(rezervare):
-    """
-    :param rezervare: rezervarea
-    :return:          numele pe care este facuta rezervarea
-    """
-    #return rezervare['nume']
+    '''
+    Aceasta functie da numele persoanei care a facut rezervarea
+    :param rezervare: un tuple de tip rezervare
+    :return: Returneaza numele presoanei care a facut rezervarea
+    '''
     return rezervare[1]
-
 def get_clasa(rezervare):
-    """
-    :param rezervare: rezervarea
-    :return:          clasa la care este facuta rezervarea
-    """
-    #return rezervare['clasa']
+    '''
+    Aceasta functie da clasa unei rezervari
+    :param rezervare: un tuple de tip rezervare
+    :return: Returneaza clasa unei rezervari
+    '''
     return rezervare[2]
-
 def get_pret(rezervare):
-    """
-    :param rezervare: rezervarea
-    :return:          pretul rezervarii
-    """
-    #return rezervare['pret']
+    '''
+    Aceasta functie da pretul unei rezervari
+    :param rezervare: un tuple de tip rezervare
+    :return: Returneaza pretul unei rezervari
+    '''
     return rezervare[3]
-
-def get_checking(rezervare):
-    """
-
-    :param rezervare: rezervarea
-    :return:          daca este sau nu facut checkinul
-    """
-    #return rezervare['checkin']
+def get_checkin(rezervare):
+    '''
+    Aceasta functie da checkin-ul unei rezervari
+    :param rezervare: un tuple de tip rezervare
+    :return: Returneaza checkin-ul unei rezervari
+    '''
     return rezervare[4]
-
-def get_str(rezervare):
-    """
-
-    :param rezervare: rezervarea
-    :return:          detalii despre rezervare
-    """
-    return f'Rezervarea cu id-ul {get_id(rezervare)}, pe numele {get_nume(rezervare)}, la clasa {get_clasa(rezervare)}.'
-
+def to_string(rezervare):
+    '''
+    :param rezervare: un tuple de tip rezervare
+    :return:
+    '''
+    return "id: {}, nume: {}, clasa: {}, pret: {}, checkin: {}".format(
+        get_id(rezervare),
+        get_nume(rezervare),
+        get_clasa(rezervare),
+        get_pret(rezervare),
+        get_checkin(rezervare)
+    )
