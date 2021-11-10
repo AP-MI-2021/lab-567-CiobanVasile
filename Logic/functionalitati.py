@@ -1,7 +1,7 @@
 from Domain.rezervare import get_nume, creeaza_rezervare, get_clasa, get_id, get_pret, get_checkin
 
 
-def Trecerea_Rezervarilor_La_Clasa_Superioara(nume, lista):
+def trecerea_rezervarilor_la_clasa_superioara(nume, lista):
     '''
     Trece clasa rezervarile cu numele "nume" la o clasa superioara
     :param nume: Numele rezervarilor pentru care trebuie modificata clasa la o clasa superioara
@@ -41,7 +41,7 @@ def Trecerea_Rezervarilor_La_Clasa_Superioara(nume, lista):
         else:
              new_list.append(rezervare)
     return new_list
-def Ieftinirea_Rezervarilor_Cu_Un_Procentaj(procent, lista):
+def ieftinirea_rezervarilor_cu_un_procentaj(procent, lista):
     '''
     Rezervarile care au facut checkin-ul vor fi ieftinite cu un procentaj dat "procent"
     :param procent: procentul cu care vor fi ieftinite preturile rezervarilor - string

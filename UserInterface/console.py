@@ -1,11 +1,11 @@
 from Domain.rezervare import to_string, get_nume, get_clasa, get_pret, get_checkin
 from Logic.crud import adauga_rezervare, delete_rezervare, update_rezervare, get_by_id, get_by_Nume
-from Logic.functionalitati import Trecerea_Rezervarilor_La_Clasa_Superioara, Ieftinirea_Rezervarilor_Cu_Un_Procentaj, \
+from Logic.functionalitati import trecerea_rezervarilor_la_clasa_superioara, ieftinirea_rezervarilor_cu_un_procentaj, \
     pret_maxim_ficare_clasa, ordonare_descrescatoare_pret, sume_preturi_fiecare_nume, \
     adaugare_in_lista_nume, undo, redo
 
 
-def Print_Menu():
+def show_menu():
     print("1. Adaugare Rezervare")
     print("2. Stergere Rezervare")
     print("3. Modificare Rezervare")
@@ -19,7 +19,7 @@ def Print_Menu():
     print("a. Afisare rezervari facute")
     print("x. Iesire")
 
-def UI_Sterge_Rezervare(lista, undo_operations, redo_operations):
+def ui_delete_rezervare(lista, undo_operations, redo_operations):
     try:
         ID = input("Dati ID-ul rezervarii pe care doriti sa o stergeti: ")
         if get_by_id(ID, lista) is None:
@@ -44,7 +44,7 @@ def UI_Sterge_Rezervare(lista, undo_operations, redo_operations):
         return lista
 
 
-def UI_Modifica_Rezervare(lista, undo_operations, redo_operations):
+def ui_update_rezervare(lista, undo_operations, redo_operations):
     try:
         ID = input("Dati ID-ul rezervarii pe care doriti sa o modificati: ")
         nume = input("Dati un nume nou: ")
@@ -86,7 +86,7 @@ def UI_Modifica_Rezervare(lista, undo_operations, redo_operations):
         print("Eroare: {}".format(ve))
         return lista
 
-def UI_Adauga_Rezervare(lista, undo_operations, redo_operations):
+def ui_adauga_rezervare(lista, undo_operations, redo_operations):
     try:
         ID = input("Dati un ID: ")
         nume = input("Dati un nume: ")
@@ -121,7 +121,7 @@ def UI_Adauga_Rezervare(lista, undo_operations, redo_operations):
         print("Eroare: {}".format(ve))
         return lista
 
-def Show_All(lista):
+def show_all(lista):
     for rezervare in lista:
         print(to_string(rezervare))
 
@@ -131,7 +131,7 @@ def ui_trecerea_rezervarilor_la_clasa_superioara(lista, undo_operations, redo_op
         if get_by_Nume(nume, lista) is None:
             raise ValueError("Numele dat nu exista in lista!")
         else:
-            rezultat = Trecerea_Rezervarilor_La_Clasa_Superioara(nume, lista)
+            rezultat = trecerea_rezervarilor_la_clasa_superioara(nume, lista)
             undo_operations.append([lambda: lista, lambda: rezultat])
             redo_operations.clear()
             return rezultat
@@ -147,7 +147,7 @@ def ui_ieftinirea_rezervarilor_cu_un_procentaj(lista, undo_operations, redo_oper
         else:
             try:
                 proc = procent[0: len(procent) - 1]
-                rezultat = Ieftinirea_Rezervarilor_Cu_Un_Procentaj(procent, lista)
+                rezultat = ieftinirea_rezervarilor_cu_un_procentaj(procent, lista)
                 undo_operations.append([lambda: lista, lambda: rezultat])
                 redo_operations.clear()
                 return rezultat
@@ -155,23 +155,23 @@ def ui_ieftinirea_rezervarilor_cu_un_procentaj(lista, undo_operations, redo_oper
                 print("Eroare: {}".format(ve))
                 return lista
 
-def UI_Determinarea_Pretului_Maxim_Pentru_Fiecare_Clasa(lista):
+def ui_determinarea_pretului_maxim_pentru_fiecare_clasa(lista):
     print(pret_maxim_ficare_clasa(lista))
     return lista
 
 
-def UI_Ordonare_Descrescator_Pret(lista, undo_operations, redo_operations):
+def ui_ordonare_descrescator_pret(lista, undo_operations, redo_operations):
     rezultat = ordonare_descrescatoare_pret(lista)
     undo_operations.append([lambda: lista, lambda: rezultat])
     redo_operations.clear()
     return rezultat
 
-def UI_Sume_Preturi_Pentru_Fiecare_Nume(lista_nume, lista):
+def ui_sume_preturi_pentru_fiecare_nume(lista_nume, lista):
     lista_sume = sume_preturi_fiecare_nume(lista_nume, lista)
     for nume in range(len(lista_nume)):
         print("Suma preturilor pentru numele " + " " + lista_nume[nume] + " este " + " " + str(lista_sume[nume]))
 
-def UI_Lista_de_rezervari():
+def ui_lista_de_rezervari():
     lista = []
     lista = adauga_rezervare("1", "Anglia", "economy plus", 100.0, "Da", [])
     lista = adauga_rezervare("2", "Anglia", "economy", 20.0, "Da", lista)
@@ -199,26 +199,26 @@ def run_menu_vechi(lista):
     undo_operations = []
     redo_operations = []
     while True:
-        Print_Menu()
+        show_menu()
         lista_nume = []
         lista_nume = adaugare_in_lista_nume(lista_nume, lista)
         Optiune = input("Dati optiunea: ")
         if Optiune == "1":
-            lista = UI_Adauga_Rezervare(lista, undo_operations, redo_operations)
+            lista = ui_adauga_rezervare(lista, undo_operations, redo_operations)
         elif Optiune == "2":
-            lista = UI_Sterge_Rezervare(lista, undo_operations, redo_operations)
+            lista = ui_delete_rezervare(lista, undo_operations, redo_operations)
         elif Optiune == "3":
-            lista = UI_Modifica_Rezervare(lista, undo_operations, redo_operations)
+            lista = ui_update_rezervare(lista, undo_operations, redo_operations)
         elif Optiune == "4":
             lista = ui_trecerea_rezervarilor_la_clasa_superioara(lista, undo_operations, redo_operations)
         elif Optiune == "5":
             lista = ui_ieftinirea_rezervarilor_cu_un_procentaj(lista, undo_operations, redo_operations)
         elif Optiune == "6":
-            UI_Determinarea_Pretului_Maxim_Pentru_Fiecare_Clasa(lista)
+            ui_determinarea_pretului_maxim_pentru_fiecare_clasa(lista)
         elif Optiune == "7":
-            lista = UI_Ordonare_Descrescator_Pret(lista, undo_operations, redo_operations)
+            lista = ui_ordonare_descrescator_pret(lista, undo_operations, redo_operations)
         elif Optiune == "8":
-            UI_Sume_Preturi_Pentru_Fiecare_Nume(lista_nume, lista)
+            ui_sume_preturi_pentru_fiecare_nume(lista_nume, lista)
         elif Optiune == 'u':
             if len(undo_operations) > 0:
                 lista = undo(lista, undo_operations, redo_operations)
@@ -230,7 +230,7 @@ def run_menu_vechi(lista):
             else:
                 print("Nu se poate face Redo")
         elif Optiune == "a":
-            Show_All(lista)
+            show_all(lista)
         elif Optiune == "x":
             break
         else:
