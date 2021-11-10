@@ -1,6 +1,6 @@
 from Tests.all_tests import Run_All
 from UserInterface.command_line_console import run_menu_nou
-from UserInterface.console import run_menu_vechi, UI_Lista_de_rezervari
+from UserInterface.console import run_menu_vechi, ui_lista_de_rezervari
 
 def Meniu():
     print("1. Interfata veche")
@@ -8,7 +8,7 @@ def Meniu():
     print("x. Iesire")
 
 def main():
-    #lista = UI_Lista_de_rezervari()
+    #lista = ui_Lista_de_rezervari()
     lista = []
     Run_All()
     while True:

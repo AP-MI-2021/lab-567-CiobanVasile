@@ -1,5 +1,5 @@
 from Logic.crud import adauga_rezervare, delete_rezervare, update_rezervare, get_by_id
-from UserInterface.console import Show_All
+from UserInterface.console import show_all
 
 
 def read_in_line():
@@ -115,4 +115,4 @@ def run_menu_nou(lista_rezervari):
                 lista_noua = lista[1:]
                 lista_rezervari = ui_update_rezervare(lista_rezervari, lista_noua)
             elif lista[0] == lista_comenzi[3]:
-                Show_All(lista_rezervari)
+               show_all(lista_rezervari)
