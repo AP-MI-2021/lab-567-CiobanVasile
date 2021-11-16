@@ -1,118 +1,114 @@
-from Logic.crud import adauga_rezervare, delete_rezervare, update_rezervare, get_by_id
-from UserInterface.console import show_all
-
+from Logic.crud import create, delete, update, read, creeaza_rezervare
+from UserInterface.console import handle_show_all
+from Domain.rezervare import get_id
 
 def read_in_line():
-    '''
+    """
     Citire lista in linie
-    La parametrul "; " gasit se va sparge lista si vor fi create doua liste separate
-    La parametrul ", " gasit se va sparge lista, astfel incat lista noastra va fi parcursa cuvant cu cuvant
+    La separatorul ";" gasit se va imparti lista si vor fi create doua liste separate
+    La separatorul "," gasit se va imparti lista, astfel incat lista noastra va fi parcursa cuvant cu cuvant
     :return:
-    '''
-    lista_mare = []
-    lista_mica = []
-    print("Separatori de comenzi: '; '")
+    """
+    list_one = []
+    list_two = []
+    print("Separatorii de comenzi: '; '")
     print("Separatori de cuvinte: ', '")
-    print("Nu uitati sa puneti spatiu dupa fiecare separator!")
-    sir = input("Dati niste comenzi din lista {Adauga, Sterge, Modifica, ShowAll}: ")
-    lista = sir.split('; ')
-    for index in lista:
-        cuvant = index.split(', ')
-        lista_mica = []
-        for y in range(len(cuvant)):
-            lista_mica.append(cuvant[y])
-        lista_mare.append(lista_mica)
-    return lista_mare
+    print("!Nu uitati sa puneti cate un spatiu dupa fiecare separator!")
+    comanda= input("Dati niste comenzi din lista {Adaugare, Stergere, Modificarea, showAll}: ")
+    lista = comanda.split('; ')
+    for i in lista:
+        word = i.split(', ')
+        list_two = []
+        for x in range(len(word)):
+            list_two.append(word[x])
+        list_one.append(list_two)
+    return list_one
+
+def adauga_rezervare(list, new_list):
+        '''
+        Adauga o rezervare in lista noastra
+        :param list: lista de rezervari
+        :param new_list: lista care contine rezervarea mea curenta care trebuie adaugata in lista de rezervari
+        :return:
+        '''
+        try:
+            id = new_list[0]
+            nume = new_list[1]
+            clasa = new_list[2]
+            if clasa != "economy" and clasa != "economy plus" and clasa != "business":
+                print('Clasa pe care ati introdus-o nu exista ')
+                return list
+            checkin = new_list[4]
+            if checkin != "da" and checkin != "nu":
+                print('Introduceti daca este sau nu facut checkinul ')
+                return list
+            pret = float(new_list[3])
+            return create(list, new_list[0], new_list[1], new_list[2], float(new_list[3]), new_list[4])
+        except IndexError as ve:
+            print('Eroare', ve)
+            return list
+        except ValueError as ve:
+            print('Eroare ', ve)
+            return list
+
+def sterge_rezervare(list, new_list):
+        '''
+        Sterge o rezervare in lista din baza de date
+        :param list: lista de rezervari
+        :param new_list: lista care contine rezervarea curenta care trebuie adaugata in lista de rezervari
+        :return:
+        '''
+        try:
+            if read(list,get_id(new_list[0])) is None:
+                print(f'Rezervarea cu id-ul {get_id(new_list[0])} nu exista')
+                return list
+            else:
+                return delete(list, get_id(new_list[0]))
+        except ValueError as ve:
+            print('Eroare ', ve)
+            return list
+
+def modifica_rezervare(list , new_list):
+        '''
+        Modifica o rezervare in lista noastra
+        :param list: lista de rezervari
+        :param new_list: lista care contine rezervarea mea curenta care trebuie adaugata in lista de rezervari
+        :return:
+        '''
+        try:
+            id = new_list[0]
+            nume = new_list[1]
+            clasa = new_list[2]
+            if clasa != "economy" and clasa != "economy plus" and clasa != "business":
+                print("Nu ati introdus o clasa existenta! ")
+                return list
+            checkin = new_list[4]
+            if checkin != "da" and checkin != "nu":
+                print("Nu ati introdus da sau nu")
+                return list
+            pret = float(new_list[3])
+            return update(list, creeaza_rezervare(id, nume, clasa, pret, checkin))
+        except IndexError as ve:
+            print('Eroare:', ve)
+            return list
+        except ValueError as ve:
+            print('Eroare:', ve)
+            return list
 
 
-def ui_adauga_rezervare(lista, lista_mea):
-    '''
-    Adauga o rezervare in lista noastra
-    :param lista: lista de rezervari
-    :param lista_mea: lista care contine rezervarea mea curenta care trebuie adaugata in lista de rezervari
-    :return:
-    '''
-    try:
-        ID = lista_mea[0]
-        nume = lista_mea[1]
-        clasa = lista_mea[2]
-        if clasa != "economy" and clasa != "economy plus" and clasa != "business":
-            print("Nu ati introdus o clasa existenta!!!")
-            return lista
-        checkin = lista_mea[4]
-        if checkin != "Da" and checkin != "Nu":
-            print("Nu ati introdus Da sau Nu")
-            return lista
-        pret = float(lista_mea[3])
-        return adauga_rezervare(lista_mea[0], lista_mea[1], lista_mea[2], float(lista_mea[3]), lista_mea[4], lista)
-    except IndexError as ve:
-        print("Eroare: {}".format(ve))
-        return lista
-    except ValueError as ve:
-        print("Eroare: {}".format(ve))
-        return lista
-
-
-def ui_sterge_rezervare(lista, lista_mea):
-    '''
-    Sterge o rezervare in lista noastra
-    :param lista: lista de rezervari
-    :param lista_mea: lista care contine rezervarea mea curenta care trebuie adaugata in lista de rezervari
-    :return:
-    '''
-    try:
-        id = lista_mea[0]
-        if get_by_id(id, lista) is None:
-            print("Id-ul nu exista!")
-            return lista
-        else:
-            return delete_rezervare(lista_mea[0], lista)
-    except IndexError as ve:
-        print("Eroare: {}".format(ve))
-        return lista
-
-
-def ui_update_rezervare(lista, lista_mea):
-    '''
-    Modifica o rezervare in lista noastra
-    :param lista: lista de rezervari
-    :param lista_mea: lista care contine rezervarea mea curenta care trebuie adaugata in lista de rezervari
-    :return:
-    '''
-    try:
-        ID = lista_mea[0]
-        nume = lista_mea[1]
-        clasa = lista_mea[2]
-        if clasa != "economy" and clasa != "economy plus" and clasa != "business":
-            print("Nu ati introdus o clasa existenta!!!")
-            return lista
-        checkin = lista_mea[4]
-        if checkin != "Da" and checkin != "Nu":
-            print("Nu ati introdus Da sau Nu")
-            return lista
-        pret = float(lista_mea[3])
-        return update_rezervare(lista_mea[0], lista_mea[1], lista_mea[2], float(lista_mea[3]), lista_mea[4], lista)
-    except IndexError as ve:
-        print("Eroare: {}".format(ve))
-        return lista
-    except ValueError as ve:
-        print("Eroare: {}".format(ve))
-        return lista
-
-
-def run_menu_nou(lista_rezervari):
+def menu_help(lista_rezervari):
     lista_lista = read_in_line()
-    lista_comenzi = ["Adauga", "Sterge", "Modifica", "ShowAll"]
+    lista_comenzi = ["Adaugare", "Stergere", "Modificare", "showAll",]
     for lista in lista_lista:
          if lista[0] in lista_comenzi:
             if lista[0] == lista_comenzi[0]:
                 lista_noua = lista[1:]
-                lista_rezervari = ui_adauga_rezervare(lista_rezervari, lista_noua)
+                lista_rezervari = adauga_rezervare(lista_rezervari, lista_noua)
             elif lista[0] == lista_comenzi[1]:
                 lista_noua = lista[1:]
-                lista_rezervari = ui_sterge_rezervare(lista_rezervari, lista_noua)
+                lista_rezervari = sterge_rezervare(lista_rezervari, lista_noua)
             elif lista[0] == lista_comenzi[2]:
                 lista_noua = lista[1:]
-                lista_rezervari = ui_update_rezervare(lista_rezervari, lista_noua)
+                lista_rezervari = modifica_rezervare(lista_rezervari, lista_noua)
             elif lista[0] == lista_comenzi[3]:
-               show_all(lista_rezervari)
+                handle_show_all(lista_rezervari)

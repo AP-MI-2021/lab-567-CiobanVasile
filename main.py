@@ -1,26 +1,39 @@
-from Tests.all_tests import Run_All
-from UserInterface.command_line_console import run_menu_nou
-from UserInterface.console import run_menu_vechi, ui_lista_de_rezervari
+from UserInterface.console import run_ui
+from Tests.tests import test_crud, tests_functionalitati
+from Tests.tests_undo_and_redo import test_undo_redo
+from UserInterface.command_line_console import menu_help
+from Tests.tests_undo_and_redo import test_trecere_rezervari_nume_clasa_superioara_undo_redo
+from Tests.tests_undo_and_redo import test_ieftinirea_rezervarilor_cu_un_procentaj_undo_redo
+from Tests.tests_undo_and_redo import test_ordonare_descrescator_pret_undo_redo
 
-def Meniu():
-    print("1. Interfata veche")
-    print("2. Interfata noua")
-    print("x. Iesire")
+
+def meniuri():
+    print('1. Meniul vechi(Toate cerintele inclusiv unde si redo)')
+    print('2. Meniul nou(Doar primele 3 cerinte)')
+    print('x. Exit')
 
 def main():
-    #lista = ui_Lista_de_rezervari()
-    lista = []
-    Run_All()
+    undo_list = []
+    redo_list = []
+    rezervari = []
     while True:
-        Meniu()
-        optiune = input("Alegeti interfata: ")
+        meniuri()
+        optiune = input('Alegeti interfata: ')
         if optiune == '1':
-            run_menu_vechi(lista)
+            run_ui(rezervari, undo_list, redo_list)
         elif optiune == '2':
-            run_menu_nou(lista)
+            menu_help(rezervari)
         elif optiune == 'x':
             break
         else:
             print("Optiune invalida ")
+
+
 if __name__ == '__main__':
+    test_crud()
+    tests_functionalitati()
+    test_undo_redo()
+    test_trecere_rezervari_nume_clasa_superioara_undo_redo()
+    test_ieftinirea_rezervarilor_cu_un_procentaj_undo_redo()
+    test_ordonare_descrescator_pret_undo_redo()
     main()
